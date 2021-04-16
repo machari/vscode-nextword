@@ -9,5 +9,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Update dependencies
 
 ## [0.0.1] - 2020-01-29
-
 - Initial release

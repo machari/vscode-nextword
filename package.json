@@ -3,17 +3,17 @@
 	"displayName": "Nextword",
 	"description": "Nextword English completion",
 	"version": "0.1.1",
-	"publisher": "high-moctane",
+	"publisher": "machari",
 	"license": "MIT",
 	"icon": "images/logo.png",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/high-moctane/vscode-nextword.git"
+		"url": "https://github.com/machari/vscode-nextword.git"
 	},
 	"bugs": {
-		"url": "https://github.com/high-moctane/vscode-nextword/issues"
+		"url": "https://github.com/machari/vscode-nextword/issues"
 	},
-	"homepage": "https://github.com/high-moctane/vscode-nextword/blob/master/README.md",
+	"homepage": "https://github.com/machari/vscode-nextword/blob/master/README.md",
 	"engines": {
 		"vscode": "^1.41.0"
 	},
