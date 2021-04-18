@@ -71,14 +71,14 @@ class Nextword {
 						// item.detail = "Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.";
 						if( document.length > 0) {							
 							document = document
-								.replace(/\[Language:.*\]\/\//g, '')
-								.replace(/\[Date:.*\]\/\//g, '')
-								.replace(/----------[^\-.]+----------\/\//g, '')								
-								.replace(/\/\/|\\n/g, '\n')
-								.replace(/ --/g, '\n * ')																
+								.replace(/\[Language:[^\]]*\]\/\//g, '') // [Language: Old English; Origin: putian]
+								.replace(/\[Date:[^\]]*\]\/\//g, '') // 
+								.replace(/----------[^\-]+----------\/\//g, '')								
+								.replace(/\/\/|\\n/g, '\n') // // or \n
+								.replace(/  --/g, '\n * ') // 
 							// console.log(document)
 
-							let detail = document.match(/\[[^h.]+\]/g) || [];
+							let detail = document.match(/\[[^h][^\]]*\]/g) || []; // [T]
 							let detail_unique = detail.filter(function(elem, index, self) {
 								return index === self.indexOf(elem);
 							})
