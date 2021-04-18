@@ -24,13 +24,14 @@ class Nextword {
 					}
 
 					let input = document
-						.getText(new vscode.Range(new vscode.Position(Math.max(0, position.line - 4), 0), position))
+						//.getText(new vscode.Range(new vscode.Position(Math.max(0, position.line - 4), 0), position))
+						.getText(new vscode.Range(new vscode.Position(Math.max(0, position.line), 0), position))
 						.replace(/\s/g, " ")
 						.slice(-prov.inputTrimLen);
 					
 					var output = "";
 					try {
-						output = child_process.execSync("nextword -n 30", { input: input }).toString();
+						output = child_process.execSync("nextword -g -n 30", { input: input }).toString();
 					} catch (e) {
 						console.log("nextword error:", e);
 						vscode.window.showErrorMessage("nextword error:" + String(e));

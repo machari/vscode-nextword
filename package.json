@@ -2,7 +2,7 @@
 	"name": "nextword",
 	"displayName": "Nextword",
 	"description": "Nextword English completion",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"publisher": "machari",
 	"license": "MIT",
 	"icon": "images/logo.png",
