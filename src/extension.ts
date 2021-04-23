@@ -83,7 +83,8 @@ class Nextword {
 								return index === self.indexOf(elem);
 							})
 							// console.log(detail, detail_unique)
-							item.detail = detail_unique.join(' ')
+							// item.detail = detail_unique.join(' ')
+							item.detail = "$(eye)"
 							
 							var regex = new RegExp(label, 'g');
 							document = document.replace(regex, '**' + label + '**')
