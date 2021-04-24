@@ -31,7 +31,7 @@ class Nextword {
 					
 					var output = "";
 					try {
-						output = child_process.execSync("nextword -g -n 30", { input: input }).toString();
+						output = child_process.execSync("nextword -g -n " + prov.candidateNum, { input: input }).toString();
 					} catch (e) {
 						console.log("nextword error:", e);
 						vscode.window.showErrorMessage("nextword error:" + String(e));
@@ -42,14 +42,6 @@ class Nextword {
 					if (output === "\n") {
 						return new vscode.CompletionList([], false);
 					}
-
-					// console.log(output) ;
-
-					// const res = output
-					// 	.trim()
-					// 	.split(" ")
-					// 	.slice(0, prov.candidateNum)
-					// 	.map(word => new vscode.CompletionItem(word, vscode.CompletionItemKind.Text));
 					
 					let order = 10000;
 					const res = new vscode.CompletionList;
@@ -57,18 +49,31 @@ class Nextword {
 						let parts = word.split("\t")
 						// console.log(parts, parts.length) ;
 						
-						let label = word
+						let match_type = parts[0]
+						let label = parts[1]
 						let document = ""
+						let detail = match_type						
+
 						let kind = vscode.CompletionItemKind.Text
-						if(parts.length > 1) {
-							kind = vscode.CompletionItemKind.Keyword
-							label = parts[0]
-							document = parts[1]					
+						if(parts.length > 2) {
+							kind = vscode.CompletionItemKind.Event
+							document = parts[2]
 						}
+
+						if(match_type == "N5" ){
+							kind = vscode.CompletionItemKind.Method
+						} else if(match_type == "N4" ){
+							kind = vscode.CompletionItemKind.Interface
+						} else if(match_type == "N3" ){
+							kind = vscode.CompletionItemKind.Keyword
+						} else if(match_type == "N2" ){
+							kind = vscode.CompletionItemKind.TypeParameter
+						} 
 						
 						const item = new vscode.CompletionItem(label, kind);
-						item.sortText = order++ + label
-						// item.detail = "Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.";
+						item.insertText = parts[1]
+						item.sortText = order++ + parts[1]
+						
 						if( document.length > 0) {							
 							document = document
 								.replace(/\[Language:[^\]]*\]\/\//g, '') // [Language: Old English; Origin: putian]
@@ -83,16 +88,15 @@ class Nextword {
 								return index === self.indexOf(elem);
 							})
 							// console.log(detail, detail_unique)
-							// item.detail = detail_unique.join(' ')
-							item.detail = "$(eye)"
+							item.detail = detail_unique.join(' ')
 							
 							var regex = new RegExp(label, 'g');
 							document = document.replace(regex, '**' + label + '**')
-							item.documentation = new vscode.MarkdownString(document);
-							// item.documentation = document;							
-						}
+							item.documentation = new vscode.MarkdownString(document);							
+						} else {
+							item.detail = detail;
+						}						
 						
-						// console.log(item.label) ;
 						res.items.push(item) ;
 					}
 					return res;
